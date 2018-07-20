@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>发送ajax请求</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+
+  window.onload = function () {
+    let vm = new Vue({
+        el: '#e1',
+        data: {
+          message: '',
+          uid: '',
+          user:[]
+        },
+        methods: {
+          send () {
+            axios({
+              method: 'get',
+              // url:'user.json'
+              url: 'package-lock.json'
+            }).then(function (resp) {
+              console.log(resp.data)
+            }).catch(err => {
+              console.log('请求失败' + ',' + resp.statusText)
+            })
+          },
+
+          sendGet () {
+            axios.get('user.json')
+              .then(resp => {
+                console.log(resp.data)
+              }).catch(err => {
+              console.log('请求失败')
+            })
+          },
+
+          sendPost () {
+            axios.post('user.json')
+              .then(resp => {
+                console.log(resp.data)
+                this.message = resp.data
+              }).catch(err => {
+              console.log('www')
+            })
+          },
+
+          getUserById(uid){
+                axios.get(`https://api.github.com/users/${uid}`)
+                  .then(resp =>{
+                    console.log(resp.data)
+                    this.user = resp.data
+                  })
+          }
+
+        },
+      }
+    )
+  }
+  </script>
+
+</head>
+<body>
+<div id="e1">
+  <button @click="send">发送</button>
+  <button @click="sendGet">axiosGET发送请求</button>
+  <button @click="sendPost">axiosPOST发送请求</button>
+  <p>{{message}}</p>
+  <br>
+  <br>
+
+  Github ID:<input type="text" v-model="uid">
+  <button @click="getUserById(uid)">获取指定github信息</button>
+  <br>
+  姓名:{{user.login}}
+  id:{{user.id}}
+</div>
+</body>
+</html>

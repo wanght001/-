@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>动画</title>
+</head>
+<link rel="stylesheet" href="animate.css">
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style>
+p{
+    width: 300px;
+    height: 300px;
+    background-color: darkcyan;
+}
+
+.fade-enter-active,.fade-leave-active{
+    transition: all 3s ease;
+}
+
+.fade-enter-active{
+  opacity: 1;
+  width: 300px;
+  height: 300px;
+}
+
+.fade-leave-active{
+  opacity: 0;
+  width: 100px;
+  height: 100px;
+}
+
+.fade-enter{
+  opacity: 0;
+  width: 50px;
+  height: 50px;
+}
+
+</style>
+<body>
+<div id="e1">
+    <button @click="show">蜻蜓点水</button>
+    <transition name="fade"
+    @before-enter="beforeEnter"
+    @enter="enter"
+    @after-enter="afterEnter"
+    @before-leave="beforeLeave"
+    @leave="leave"
+    @afer-leave="afterLeave">
+    <p v-show="flag">梦里不知身是客</p>
+    </transition>
+</div>
+<div id="e2">
+  <button @click="flag=!flag">点</button>
+  <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+    <p v-show="flag"> www </p>
+  </transition>
+</div>
+</body>
+<script>
+
+var vm2 = new Vue({
+   el:'#e2',
+   data:{
+       flag:false
+   }
+})
+
+
+var vm = new Vue({
+    el: '#e1',
+    data: {
+        flag:true
+    },
+    methods: {
+        show(){
+            if(this.flag === true){
+                this.flag = false
+            }else {
+                this.flag = true
+            }
+        },
+        beforeEnter(el){
+            // alert('动画进入之前')
+            el.style.background = 'blue'
+        },
+        enter(){
+            // alert('动画进入')
+        },
+        afterEnter(el){
+            // alert('动画进入之后')
+            el.style.background = 'orange'
+
+        },
+        beforeLeave(){
+            // alert('动画离开之前')
+        },
+        leave(){
+            // alert('动画离开')
+        },
+        afterLeave(){
+            // alert('动画离开之后')
+        }
+    },
+})
+</script>
+</html>

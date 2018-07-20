@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="e1">
+  <input v-model="message" placeholder="edit me">
+  <p>Message is: {{ message }}</p>
+  <span>Multiline message is:</span>
+  <p style="white-space: pre-line;">{{ message }}</p>
+  <br>
+  <textarea v-model="message" placeholder="add multiple lines"></textarea>
+</div>
+<br>
+<div id='e2'>
+  <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+  <label for="jack">Jack</label>
+  <input type="checkbox" id="john" value="John" v-model="checkedNames">
+  <label for="john">John</label>
+  <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+  <label for="mike">Mike</label>
+  <br>
+  <span>Checked names: {{ checkedNames }}</span>
+</div>
+<br>
+<div id="e3">
+  <input type="radio" id="one" value="One" v-model="picked">
+  <label for="one">One</label>
+  <br>
+  <input type="radio" id="two" value="Two" v-model="picked">
+  <label for="two">Two</label>
+  <br>
+  <span>Picked: {{ picked }}</span>
+</div>
+<br>
+<div id="e4">
+  <select v-model="selected">
+    <option disabled value="">请选择</option>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <span>Selected: {{ selected }}</span>
+</div>
+<br>
+<div id="e5">
+  <select v-model="selected" multiple style="width: 50px;">
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <br>
+  <span>Selected: {{ selected }}</span>
+</div>
+<br>
+<div id="e6">
+  <select v-model="selected">
+    <option v-for="option in options" v-bind:value="option.value">
+      {{ option.text }}
+    </option>
+  </select>
+  <span>Selected: {{ selected }}</span>
+  <br>
+  <input
+    type="checkbox"
+    v-model="toggle"
+    true-value="yes"
+    false-value="no"
+  >
+  <p>{{toggle}}</p>
+
+  <input type="radio" v-model="pick" v-bind:value="a">
+  <p>{{pick}}</p>
+
+  <select v-model="selected1">
+    <!-- 内联对象字面量 -->
+    <option v-bind:value="{ number: 123 }">123</option>
+  </select>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  new Vue({
+    el: '#e1',
+    data: {
+      message: ''
+    }
+  })
+
+  new Vue({
+    el: '#e2',
+    data: {
+      checkedNames: []
+    }
+  })
+
+  new Vue({
+    el: '#e3',
+    data: {
+      picked: ''
+    }
+  })
+
+  new Vue({
+    el: '#e4',
+    data: {
+      selected: ''
+    }
+  })
+
+  new Vue({
+    el: '#e5',
+    data: {
+      selected: []
+    }
+  })
+
+  new Vue({
+    el: '#e6',
+    data: {
+      selected: 'A',
+      toggle:'',
+      pick:'',
+      a:'aaa',
+      selected1:'',
+      options: [
+        {text: 'A', value: 'A'},
+        {text: 'B', value: 'B'},
+        {text: 'C', value: 'C'},
+      ]
+    }
+  })
+</script>
+</html>

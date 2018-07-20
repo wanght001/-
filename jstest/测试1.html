@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<meta charset="utf-8"> 
+	<title>W3Cschool教程(w3cschool.cn)</title> 
+</head>
+<body>
+
+	<div>
+		<h1>我的 Web 页面</h1>
+		<p id="demo">一个段落。</p>
+		<button type="button" onclick="myFunction()">点击这里</button>
+		<p><b>注释：</b>myFunction 保存在名为 "myscript.js" 的外部文件中。</p>
+	</div>
+	
+	<div>
+		<script>
+			var i;
+			var cars = new Array();
+			cars[0] = "Saab";
+			cars[1] = "Volvo";
+			cars[2] = "BMW";
+
+			for (i=0;i<cars.length;i++)
+			{
+				document.write(cars[i] + "<br>");
+			}
+		</script>
+	</div>
+
+	<!--两种寻址方式-->
+	<div>
+		<script>
+			var person=
+			{
+				firstname : "John",
+				lastname  : "Doe",
+				id        :  5566
+			};
+			document.write(person.lastname + "<br>");
+			document.write(person["lastname"] + "<br>");
+		</script>
+	</div>
+
+	<div>
+		<p>点击这个按钮，来调用带参数的函数。</p>
+		<button onclick="myFunction1('Harry Potter','Wizard')">点击这里</button>
+	</div>
+
+	<div>
+		<p>本例调用的函数会执行一个计算，然后返回结果：</p>
+		<p id="demo1"></p>
+	</div>
+
+	<div>
+		<p>全局变量在任何脚本和函数内均可访问。</p>
+		<p id="demo2"></p>
+	</div>
+
+	<div>
+		<p>如果你的变量没有声明，它将自动成为全局变量：</p>
+		<p id="demo3"></p>
+	</div>
+
+	<div>
+		<button onclick="getElementById('demo4').innerHTML=Date()">现在的时间是1?</button>
+		<p id="demo4"></p>
+		<button onclick="this.innerHTML=Date()">现在的时间是2?</button>
+	</div>
+
+	<div>
+		<p>=== 为绝对相等，即数据类型与值都必须相等。</p>
+		<p id="demo5"></p>
+		<p id="demo6"></p>
+	</div>
+
+	<div>
+		<script type="text/javascript">
+			var d = new Date();
+			var time = d.getHours();
+			if (time<10)
+			{
+				document.write("<br>早上好</br>");
+				document.write(d);
+			}
+			else if (time>=10 && time<20)
+			{
+				document.write("<br>今天好</br>");
+				document.write(d);
+			}
+			else
+			{
+				document.write("<b>Hello World!</b>");
+				document.write(d);
+			}
+		</script>
+
+	</div>
+
+	<div>
+		<p>点击下面的按钮，会显示出基于今日日期的消息：</p>
+		<button onclick="myFunction4()">点击这里</button>
+		<p id="demo7"></p>	
+	</div>
+
+	<div>
+		<p>点击下面的按钮，循环遍历对象 "person" 的属性。</p>
+		<button onclick="myFunction5()">点击这里</button>
+		<p id="demo8"></p>
+	</div>
+
+	<div>
+		<p>判断是否为日期。</p>
+		<p id="demo9"></p>
+		<script>
+			var myDate = new Date();
+			document.getElementById("demo9").innerHTML = isDate(myDate);
+			function isDate(myDate) {
+				return myDate.constructor.toString().indexOf("Date") > -1;
+			}
+		</script>
+	</div>
+	
+	<!--表单验证-->
+	<div>
+		<form name="myForm" action="弹框1.html" onsubmit="return validateForm()" method="post">
+			姓：<input type="text" name="fname">
+			<input type="submit" name="提交">
+		</form>
+	</div>
+
+	<div>
+		<h2>为 JSON 字符串创建对象</h2>
+		<p id="demo10"></p>
+		<p id="demo11"></p>
+		<p id="demo12"></p>
+	</div>
+
+	<div>
+		<p>查找最大的数。JavaScript 函数有个内置的对象 arguments 对象.</p>
+		<p>	argument 对象包含了函数调用的参数数组。	</p>
+		<p>	通过这种方式你可以很方便的找到最后一个参数的值：</p>
+		<p id="demo13"></p>
+	</div>
+
+	<div>
+		<p>计算和</p>
+		<p id="demo14"></p>
+	</div>
+
+	<div>
+		<p>myObject.fullName() 返回 John Doe:</p>
+		<p id="demo15"></p>
+	</div>
+
+	<div>
+		<p>局部变量计数, 函数自我调用</p>
+		<button type="button" onclick="myFunction6()">计数!</button>
+		<p id="demo16">0</p>	
+	</div>
+</body>
+<script src="../../Desktop/javascript学习/myscript.js"></script>
+<script>
+	var carName = "黑闪";
+	<!--函数调用-->
+	window.onload=function(){
+		document.getElementById("demo1").innerHTML=myFunction2(4,3);
+		document.getElementById("demo2").innerHTML ="我可以显示 " + carName;
+		myFunction3();
+		document.getElementById("demo3").innerHTML = "我可以显示 " + carName1;
+	}
+	var x = "John";              // x 是字符串
+	var y = new String("John");  // y 是一个对象
+	document.getElementById("demo5").innerHTML = typeof x + " " + typeof y;
+	document.getElementById("demo6").innerHTML = x===y;
+
+	function validateForm(){
+		var x=document.forms["myForm"]["fname"].value;
+		if (x==null || x==""){
+			alert("姓必须填写");
+			return false;
+		}
+	}
+
+	var x;
+	var text = '{"employees":[' +
+	'{"firstName":"John","lastName":"Doe" },' +
+	'{"firstName":"Anna","lastName":"Smith" },' +
+	'{"firstName":"Peter","lastName":"Jones" }]}';
+	obj = JSON.parse(text);
+	for(x in obj.employees)
+	{	
+		var y = "demo1" + x;
+		document.getElementById(y).innerHTML =
+		obj.employees[x].firstName + " " + obj.employees[x].lastName;
+	}
+	x = findMax(1, 123, 500, 115, 44, 88);
+	document.getElementById("demo13").innerHTML = findMax(4, 5, 6) +"  x为:" +x;
+
+	document.getElementById("demo14").innerHTML = sumAll(2, 3, 5);
+
+	var myObject = {
+		firstName:"Wang",
+		lastName: "Hantao",
+		fullName: function() {
+			return this.firstName + " " + this.lastName;
+		}
+	}
+	document.getElementById("demo15").innerHTML = myObject.fullName(); 
+
+	var add = (function () {
+		var counter = 0;
+		return function () {return counter += 1;}
+	})();
+</script>
+
+</html>

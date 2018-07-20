@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style>
+
+</style>
+<body>
+<div id="e2">
+  <hel></hel>
+  <hel2></hel2>
+  <my-ww></my-ww>
+</div>
+</body>
+<script>
+//方式1：先创建构造器，然后由构造器创建组件
+
+//1.使用Vue.extend创建一个构造器
+var Mycomponent = Vue.extend({
+    template: '<h3>wwww</h3>'
+});
+
+//2.使用Vue.component(标签名，构造器)创建组件
+Vue.component('hel',Mycomponent);
+
+
+//方式2:直接创建组件 全局组件
+
+Vue.component('hel2',{
+    template: '<h3>{{name}}</h3>',
+    data:function () {
+        return {
+            name: 'RNG'
+        }
+    }
+})
+
+Vue.config.productionTip = false
+window.onload=function () {
+    var vm2 = new Vue({
+        el:'#e2',
+        components:{//局部组件
+            'my-ww':{
+                template:'<h3>{{name}}</h3>',
+                data(){
+                    return {
+                        name:'wht'
+                    }
+                }
+            }
+        },
+        data:{
+        },
+    })
+}
+</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8"> 
+<title>W3Cschool教程(w3cschool.cn)</title> 
+</head>
+<body>
+	
+<script>
+function changeImage()
+{
+	element=document.getElementById('myimage')
+	if (element.src.match("bulbon"))
+ 	{
+  		element.src="/statics/images/course/pic_bulboff.gif";
+  	}
+	else
+   {
+  		element.src="/statics/images/course/pic_bulbon.gif";
+   }
+  w=document.getElementById('word')
+	if(w.innerHTML.match("打开"))
+	{
+		w.innerHTML = "关闭";
+	}
+	else{
+		w.innerHTML = "打开";
+	}
+		
+}
+	
+
+</script>
+<img id="myimage" onclick="changeImage()"
+src="/statics/images/course/pic_bulboff.gif" width="100" height="180">
+	<p id="word" onclick="changeImage()">关闭</p>
+	
+</body>
+</html>

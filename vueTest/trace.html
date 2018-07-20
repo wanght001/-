@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>会话状态</title>
+  <!-- import Vue.js -->
+  <script src="//vuejs.org/js/vue.min.js"></script>
+  <!-- import stylesheet -->
+  <link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+  <!-- import iView -->
+  <script src="//unpkg.com/iview/dist/iview.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
+</head>
+
+<style lang='less' scoped>
+  .header {
+    padding: 0.5em;
+    color: white;
+    background-color: gray;
+    clear: left;
+  }
+</style>
+
+<body>
+<div id="e1">
+  <div class="header"><span>sso会话子会话详细信息</span></div>
+  <Table :columns="columns1" :data="dataList1"></Table>
+</div>
+</body>
+<script>
+var vm = new Vue({
+    el: '#e1',
+    data () {
+        return {
+            columns1: [
+                {
+                    title: '系统编码',
+                    key: 'RF_SYSTEM_ID'
+                },
+                {
+                    title: '系统名称',
+                    key: 'RF_SYSTEM_NAME'
+                },
+                {
+                    title: '会话状态',
+                    key: 'RF_SESSION_STAT',
+                    sortable: true
+                },
+                {
+                    title: '首次登陆时间',
+                    key: 'firstLoginTime'
+                },
+                {
+                    title: '最新登陆时间',
+                    key: 'newLoginTime',
+                    sortable: true
+                },
+                {
+                    title: '支持TRACE',
+                    key: 'RF_SUPPORT_TRACE'
+                },
+                {
+                    title: '服务器地址',
+                    key: 'RF_BIZ_SRV'
+                }
+            ],
+            dataString: '',
+            dataList: []
+        }
+    },
+
+    created () {
+        let that = this
+        that.initPageData()
+    },
+
+    methods: {
+        getJsonData (jsonStr) {
+            let frontCode = jsonStr.indexOf('(') + 1
+            let endCode = jsonStr.lastIndexOf(')')
+            let jsonObj = jsonStr.slice(frontCode, endCode)
+            return JSON.parse(jsonObj)
+        },
+        initPageData () {
+            this.$http.jsonp('http://localhost:8080/SsoGetSrvInfo.sso',{
+                params:{
+                    formart: 'json'
+                },
+            }).then(res =>{
+                console.log(res.data)
+                if (this.getJsonData(res.data).status === true) {
+                    this.dataList.push(this.getJsonData(res.data).returnObject)
+                    console.log(this.dataList)
+                }
+            })
+        }
+    },
+
+    computed: {
+        dataList1 () {
+            return this.dataList
+        }
+    }
+})
+</script>
+</html>

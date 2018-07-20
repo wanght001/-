@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>添加和删除属性$set $delete</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style>
+
+</style>
+<body>
+<div id="e1">
+  <button @click="updateUser">{{user.name}}</button>
+  <button @click="addUser">{{user.age}}</button>
+  <button @click="deleteUser">de</button>
+</div>
+</body>
+<script>
+
+var vm = new Vue({
+    el: '#e1',
+    data: {
+        user:{
+            name:'wht',
+            sex:'1'
+        }
+    },
+    methods:{
+        updateUser(){
+            this.user.name = 'www'
+            console.log(this.user)
+        },
+        addUser(){
+            //this.user.age = 25 vue无法实时更新
+            // this.$set(this.user,'age',18) 实时为对象添加属性
+            // console.log(this.user)
+            if(this.user.age){
+                this.user.age++;
+            }else{
+                this.$set(this.user,'age',1)
+            }
+        },
+        deleteUser(){
+            if(this.user.age){
+                this.$delete(this.user,'age');
+            }
+        }
+    }
+})
+
+</script>
+</html>

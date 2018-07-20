@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="example-1">
+  <button @click="counter += 1">Add 1</button>
+  <p>The button above has been clicked {{ counter }} times.</p>
+</div>
+
+<div id="example-2">
+  <!-- `greet` 是在下面定义的方法名 -->
+  <button @click="greet">Greet</button>
+</div>
+
+<div id="example-3">
+  <button @click="h1">say hello</button>
+  <button @click="h2">say what</button>
+  <br>
+  <button @click="say('hello')">say hello</button>
+  <button @click="say('what')">say what</button>
+  <br>
+  <button v-on:click="warn('Form cannot be submitted yet.', $event)">Submit</button>
+</div>
+
+<div id="example-4">
+  <label>666:</label>
+  <input
+    v-model="text"
+    placeholder="Enter your 666"
+    v-on:keyup.enter="submit">
+  <button @click="submit">点击这里</button>
+  <br>
+  <p>{{message}}</p>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  var example1 = new Vue({
+    el: '#example-1',
+    data: {
+      counter: 0
+    }
+  })
+  
+  new Vue({
+    el:'#example-2',
+    data:{
+      name: 'vue.js'
+    },
+    methods: {
+      greet: function (event) {
+        // `this` 在方法里指向当前 Vue 实例
+        alert('Hello ' + this.name + '!')
+        // `event` 是原生 DOM 事件
+        if (event) {
+          alert(event.target.tagName)
+        }
+      }
+    }
+  })
+
+  new Vue({
+    el:'#example-3',
+    data:{
+    },
+    methods:{
+      h1: function () {
+          alert('hello')
+      },
+      h2: function () {
+          alert('what')
+      },
+      say: function (message) {
+          alert(message)
+      },
+      warn: function (message, event) {
+        // debugger
+        // 现在我们可以访问原生事件对象
+        if (event) event.preventDefault()
+        alert(message + event.button)
+      }
+    }
+  })
+
+  new Vue({
+    el:'#example-4',
+    data:{
+      message : '666',
+      text: '',
+    },
+    methods:{
+      submit: function () {
+        alert(this.text)
+        this.message = this.text
+      },
+    }
+  })
+</script>
+</html>

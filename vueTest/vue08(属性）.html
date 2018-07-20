@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>属性绑定和简写</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script>
+  window.onload = function () {
+    let vm = new Vue({
+        el: '#e1',
+        data: {
+          url: 'http://img3.redocn.com/tupian/20160108/lvsehuahuizhizhangfanyexiaoguobeijingsucai_5728265.jpg',
+          w: '200px',
+          h: '100px',
+          bb:'aa',
+          dd:'cc',
+          mes: 'sssss',
+          flag:'true',
+        },
+        methods: {},
+      }
+    )
+  }
+  </script>
+  <style>
+    .aa {
+      color: red;
+      font-size: 20px;
+    }
+
+    .cc{
+      background: #3855d9;
+    }
+  </style>
+</head>
+<body>
+<div id="e1">
+  <!--可以直接访问vue中的数据，不用{{}} 简写为:src-->
+  <img v-bind:src="url" :width="w" :height="h">
+  <!--数组形式，同时引入多个样式-->
+  <p :class="[bb,dd]">{{mes}}</p>
+  <!--json格式，最常用！！！-->
+  <p :class="{aa:true,cc:flag}">{{mes}}</p>
+</div>
+</body>
+</html>

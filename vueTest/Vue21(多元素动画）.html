@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>多元素动画</title>
+</head>
+<link rel="stylesheet" href="animate.css">
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style>
+P{
+  width: 100px;
+  height: 100px;
+  background-color: cadetblue;
+  margin: 20px auto;
+}
+</style>
+<body>
+<div id="e2">
+  <!--<button @click="flag=!flag">点</button>-->
+  <input type="text" v-model="name">
+  <transition-group enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+    <!--<p v-show="flag" :key="1"> www </p>-->
+    <!--<p v-show="flag" :key="2"> www </p>-->
+    <!--<p v-show="flag" :key="3"> www </p>-->
+    <!--<p v-show="flag" :key="4"> www </p>-->
+    <p v-for="(v,k) in arr2" :key="k" v-show="flag">
+      {{v}}
+    </p>
+  </transition-group>
+</div>
+</body>
+<script>
+
+var vm2 = new Vue({
+    el:'#e2',
+    data:{
+        flag:true,
+        arr: ['tom', 'jack', 'mike', 'alice', 'alex', 'make'],
+        name: ''
+    },
+    computed:{
+        arr2:function () {
+            var temp =[]
+            this.arr.forEach(val=>{
+                if(val.includes(this.name)){
+                    temp.push(val);
+                }
+            })
+            return temp;
+        }
+    }
+})
+</script>
+</html>

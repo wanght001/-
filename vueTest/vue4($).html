@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="app">
+  <button @click="addn">{{pn}}</button>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  var app=new Vue({
+    el:"#app",
+    data:{
+      pn:10
+    },
+    methods:{
+      addn:function(){
+        this.pn+=1;
+        this.$emit('text','hi');
+      }
+
+    }
+  });
+  app.$on('text',function(value){
+    console.log(value);
+  })
+</script>
+</html>

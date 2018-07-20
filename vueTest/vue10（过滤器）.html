@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>过滤器</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script>
+  Vue.filter('addZero',function (data) {
+    return data<10? data+'0':data;
+  })
+
+  Vue.filter('date', data =>{
+    let d = new Date(data);
+    return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'  '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()
+  })
+
+  window.onload = function () {
+    let vm = new Vue({
+        el: '#e1',
+        data: {
+          currentTime:Date.now()
+        },
+        methods: {},
+      }
+    )
+  }
+  </script>
+
+</head>
+<body>
+<div id="e1">
+  <p>{{8 | addZero}}</p>
+  <p>{{currentTime | date}}</p>
+</div>
+</body>
+</html>

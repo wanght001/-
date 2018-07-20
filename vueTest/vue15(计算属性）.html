@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>百度搜索</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <style>
+
+  </style>
+
+</head>
+<body>
+<div id="e1">
+  <h3>{{message}}</h3>
+  <h3>{{message2}}</h3>
+  <h3>{{reversemsg}}</h3>
+  <button @click="change">修改msg值</button>
+  <button @click="fn()">测试</button>
+</div>
+</body>
+<script>
+
+var vm = new Vue({
+  el: '#e1',
+  data: {
+    message: 'wht mym'
+  },
+
+  methods: {
+    change () {
+      this.message = 'a b c'
+    }
+  },
+
+  //计算属性对数据进行逻辑处理操作，对数据进行监视
+  computed: {
+    message2: function () {
+      return 'www'
+    },
+
+    reversemsg: function () {
+      return this.message.split(' ').reverse().join(' ')
+    }
+  }
+
+})
+
+function fn () {
+  setInterval(function () {
+    console.log(vm.message2)
+  }, 1000)
+}
+</script>
+</html>

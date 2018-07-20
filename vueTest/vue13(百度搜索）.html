@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>百度搜索</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
+  <script>
+  window.onload = function () {
+    let vm = new Vue({
+      el: '#e1',
+      data: {
+        keyword: '',
+        mydata: [],
+        now:-1  //当前选中项的索引
+      },
+      methods: {
+        getData (e) {
+          if(e.keyCode==38 || e.keyCode==40)
+            return;
+
+          this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su', {
+            params: {
+              wd: this.keyword,
+            },
+            jsonp: 'cb' //百度使用的jsonp参数名为cb，所以需要修改
+          }).then(resp => {
+            console.log(resp.data.s)
+            this.mydata = resp.data.s
+          })
+        },
+
+        changeDown(){
+          this.now ++;
+          this.keyword=this.mydata[this.now];
+          if(this.now==this.mydata.length)
+            this.now=-1;
+        },
+
+        changeUp(){
+          if(this.now==-1){
+            this.now = this.mydata.length
+          }
+          this.now --;
+          this.keyword=this.mydata[this.now];
+        }
+      }
+    })
+  }
+  </script>
+
+  <style>
+    .current{
+      background-color: gainsboro;
+    }
+  </style>
+
+</head>
+<body>
+<div id="e1">
+  <input type="text" v-model="keyword" @keyup="getData($event)" @keydown.down="changeDown" @keydown.up="changeUp">
+  <ul>
+    <li v-for="(value,index) in mydata" :class="{current:index==now}">
+      {{value}}
+    </li>
+  </ul>
+  <p v-show="mydata.length==0">暂无数据</p>
+</div>
+</body>
+</html>

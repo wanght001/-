@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>W3Cschool教程(w3cschool.cn)</title>
+</head>
+
+<body>
+<div>
+    <label for="fname">输入你的名字: </label><input type="text" id="fname" onchange="myFunction()">
+    <p>当你离开输入框后，函数将被触发，将小写字母转为大写字母。</p>
+</div>
+
+<div onmouseover="mOver(this)" onmouseout="mOut(this)" style="background-color:#3855d9;width:120px;height:20px;padding:40px;">
+    Mouse Over Me
+</div>
+
+<div onmousedown="mDown(this)" onmouseup="mUp(this)" style="background-color:#D94A38;width:90px;height:20px;padding:40px;">
+    Click Me
+</div>
+
+<div>
+    <p>该实例使用 addEventListener() 方法在按钮中添加点击事件。 </p>
+    <button id="myBtn">点我</button>
+    <button id = "myBtn1">隐藏</button>
+    <p id="demo1"></p>
+    <button id = "myBtn2">点我弹窗</button>
+</div>
+
+<div>
+    <p>实例使用 addEventListener() 方法在同一个按钮中添加多个事件。</p>
+    <button id="myBtn3">点我</button>
+    <p id="demo2"></p>
+</div>
+
+<div>
+    <p>实例演示了在使用 addEventListener() 方法时如何传递参数。</p>
+    <p>点击按钮执行计算。</p>
+    <button id="myBtn4">点我</button>
+    <p id="demo3"></p>
+</div>
+
+<div id="div1">
+    <p id="p1">这是一个段落。</p>
+    <p id="p2">这是另一个段落。</p>
+</div>
+
+<div>
+    <p>增加水果</p>
+    输入名称：<input type="text" id="fname1">
+    <button id="myBtn5" onclick="myFunction4()">点我增加</button>
+    <button id="myBtn6" onclick="myFunction5()">点我删除</button>
+    <p id="demo4"></p>
+</div>
+</body>
+
+<script type="text/javascript">
+    function myFunction(){
+        var x = document.getElementById("fname");
+        x.value=x.value.toUpperCase();
+    }
+
+    function mOver(obj){
+        obj.innerHTML="Thank You"
+    }
+    function mOut(obj){
+        obj.innerHTML="Mouse Over Me"
+    }
+
+    function mDown(obj)
+    {
+        obj.style.backgroundColor="#1ec5e5";
+        obj.innerHTML="Release Me"
+    }
+
+    function mUp(obj)
+    {
+        obj.style.backgroundColor="#D94A38";
+        obj.innerHTML="Thank You"
+    }
+
+    document.getElementById("myBtn").addEventListener("click", displayTime);
+    function displayTime(){
+        document.getElementById("demo1").innerHTML = Date();
+    }
+
+    document.getElementById("myBtn1").addEventListener("click", hideTime);
+    function hideTime(){
+        document.getElementById("demo1").innerHTML= "";
+    }
+
+    document.getElementById("myBtn2").addEventListener("click", function(){alert("hello")});
+    document.getElementById("myBtn2").addEventListener("click", function(){alert("hello1")});
+
+    var x1 = document.getElementById("myBtn3");
+    x1.addEventListener("mouseover", myFunction2);
+    x1.addEventListener("click", mySecondFunction);
+    x1.addEventListener("mouseout", myThirdFunction);
+    function myFunction2() {
+        document.getElementById("demo2").innerHTML += "Moused over!<br>"
+    }
+    function mySecondFunction() {
+        document.getElementById("demo2").innerHTML += "Clicked!<br>"
+    }
+    function myThirdFunction() {
+        document.getElementById("demo2").innerHTML += "Moused out!<br>"
+    }
+
+    var x2 = document.getElementById("myBtn4");
+    x2.addEventListener("click", function () {
+        myFunction3(5, 7);
+    });
+    function myFunction3(a, b) {
+        var result = a * b;
+        document.getElementById("demo3").innerHTML = result;
+    }
+
+    var para=document.createElement("p");
+    var node=document.createTextNode("这是一个新段落。");
+    para.appendChild(node);
+    var element=document.getElementById("div1");
+    element.appendChild(para);
+
+    var fruits = ["Banana", "Orange", "Apple", "Mango"];
+    function myFunction4(){
+        var x = document.getElementById("fname1").value;
+        fruits.unshift(x);
+        document.getElementById("demo4").innerHTML = fruits;
+    }
+    function myFunction5() {
+        fruits.shift();
+        document.getElementById("demo4").innerHTML = fruits;
+    }
+
+
+</script>
+</html>

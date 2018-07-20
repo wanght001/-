@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="blog-posts-events-demo">
+  <div :style="{ fontSize: postFontSize + 'em' }">
+    <blog-post
+      v-for="post in posts"
+      v-bind:post="post"
+      v-on:enlarge-text="postFontSize += 0.1"
+      @toosmall-text="postFontSize -= $event"
+    ></blog-post>
+  </div>
+</div>
+
+<div id="e1">
+  <custom-input v-model="searchText"></custom-input>
+</div>
+<div id="e2">
+<alert-box>
+  Something bad happened.
+</alert-box>
+</div>
+
+<div id="e3" class="demo">
+  <button v-for="tab in tabs" v-bind:key="tab" class="dynamic-component-demo-tab-button" v-bind:class="{ 'dynamic-component-demo-tab-button-active': tab === currentTab }" v-on:click="currentTab = tab">
+    {{ tab }}
+  </button>
+  <component v-bind:is="currentTabComponent" class="dynamic-component-demo-tab"></component>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  Vue.component('blog-post', {
+    props: ['post'],
+    template: `
+    <div class="blog-post">
+      <h3>{{ post.id }}</h3>
+      <button v-on:click="$emit('enlarge-text')">
+        Enlarge text
+      </button>
+      <button @click="$emit('toosmall-text', 0.1)">
+        toosmall text
+      </button>
+      <div v-html="post.title"></div>
+    </div>
+  `
+  })
+
+  new Vue({
+    el: '#blog-posts-events-demo',
+    data: {
+      posts: [
+        { id: 1, title: 'My journey with Vue' },
+        { id: 2, title: 'Blogging with Vue' },
+        { id: 3, title: 'Why Vue is so fun' },
+      ],
+      postFontSize: 1
+    }
+  })
+
+  Vue.component('custom-input', {
+    props: ['value'],
+    template: `
+    <div>
+    <input
+      v-bind:value="value"
+      v-on:input="$emit('input', $event.target.value)"
+    >
+    <p>{{value}}</p>
+    </div>
+  `
+  })
+
+  new Vue({
+    el: '#e1',
+    data:{
+      searchText:''
+    }
+
+  })
+
+  Vue.component('alert-box', {
+    template: `
+    <div class="demo-alert-box">
+      <strong>Error!</strong>
+      <slot></slot>
+    </div>
+  `
+  })
+
+  new Vue({
+    el: '#e2',
+  })
+
+  Vue.component('tab-home', { template: '<div>Home component</div>' })
+  Vue.component('tab-posts', { template: '<div>Posts component</div>' })
+  Vue.component('tab-archive', { template: '<div>Archive component</div>' })
+
+  new Vue({
+    el: '#e3',
+    data: {
+      currentTab: 'Home',
+      tabs: ['Home', 'Posts', 'Archive']
+    },
+    computed: {
+      currentTabComponent: function () {
+        return 'tab-' + this.currentTab.toLowerCase()
+      }
+    }
+  })
+</script>
+</html>

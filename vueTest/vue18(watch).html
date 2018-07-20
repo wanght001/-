@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>监视数据变化 $watch</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style>
+
+</style>
+<body>
+<div id="e1">
+  <input type="text" v-model="name">
+  <p>{{name}}</p>
+  <input type="text" v-model="age">
+  <p>{{age}}</p>
+</div>
+</body>
+<script>
+
+var vm = new Vue({
+    el: '#e1',
+    data: {
+        name: '',
+        age:''
+    },
+    methods: {},
+    watch:{//使用watch选项
+        age : (newValue,oldValue)=>{
+            console.log('age被修改了！！！！！！！！'+'原值:'+oldValue+'新值:'+newValue)
+        }
+    }
+})
+vm.$watch('name', function (newValue,oldValue) { //使用vue实例提供的$watch方法
+      console.log('name被修改了！！！！！！！！'+'原值:'+oldValue+'新值:'+newValue)
+})
+
+</script>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>路由基本用法</title>
+</head>
+<link rel="stylesheet" href="animate.css">
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<style>
+ .active{
+   font-size: 20px;
+   color: orange;
+   text-decoration: none;
+ }
+</style>
+<body>
+<div id="e2">
+  <h1>hello router</h1>
+  <div>
+    <!--使用router-link组件定义导航，to属性指定链接url-->
+    <router-link to="/home">主页</router-link>
+    <router-link to="/new">新闻</router-link>
+    <router-link to="/user">用户</router-link>
+  </div>
+
+  <div>
+    <!--用来显示view内容-->
+    <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+    <router-view></router-view>
+    </transition>
+  </div>
+</div>
+</body>
+
+<template id="user">
+    <div>
+      <h3>用户信息</h3>
+      <ul>
+        <li><router-link to="/user/login?name=tom&pwd=123">用户登陆</router-link></li>    <!--子路由-->
+        <li><router-link to="/user/regist/wht/123">用户注册</router-link></li>    <!--子路由-->
+      </ul>
+
+      <div><router-view></router-view></div>
+    </div>
+</template>
+
+<script>
+
+window.onload = function () {
+    //1.定义组件
+    var Home = {
+        template: '<h3>我是主页</h3>'
+    }
+
+    var News = {
+        template: '<h3>我是新闻</h3>'
+    }
+
+    var User = {
+        template : '#user'
+    }
+
+    var Login={
+        template:'<h4>用户登陆......获取参数：{{$route.query}}</h4>'   //两种获取参数的方式
+    }
+
+    var Regist={
+        template:'<h4>用户注册......获取参数：{{$route.params}}</h4>'
+    }
+    //2.配置路由
+    const routes = [
+        {path: '/home', component: Home},
+        {path: '/new', component: News},
+        {
+            path: '/user',
+            component: User,
+            children:[              //子路由
+                {path:'login', component: Login},
+                {path:'regist/:username/:password', component: Regist}
+
+    ]},
+        // {path:'*',redirect:"/home"}  //路由重定向
+    ]
+
+    //3.创建路由实例
+    const router = new VueRouter({
+        routes,  //简写 相当于routes：routes
+        mode:'history',
+        linkActiveClass:'active'
+    });
+
+    //创建vue实例并将路由挂载到VUE实例上
+    var vm2 = new Vue({
+        el: '#e2',
+        router,
+        data:{}
+    })
+}
+</script>
+</html>

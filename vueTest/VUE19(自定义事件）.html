@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>自定义指令</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style>
+  #e1 div {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+  }
+
+  #e1 .e11 {
+    background-color: red;
+    left: 0;
+    top: 0;
+  }
+
+  #e1 .e12 {
+    background-color: deepskyblue;
+    right: 0;
+    top: 0;
+  }
+
+</style>
+<body>
+<div id="e1">
+  <div class="e11" v-drag>惶惚兮若轻云之蔽月</div>
+  <div class="e12" v-drag>飘鹞兮若流风之回雪</div>
+</div>
+
+<div id="e2">
+
+</div>
+</body>
+<script>
+
+Vue.directive('drag',el=>{
+    el.onmousedown = function (e) {
+        //获取鼠标点击相对DIV的位置：鼠标位置-div位置
+        var disx = e.clientX-el.offsetLeft;
+        var disy = e.clientY-el.offsetTop;
+        console.log(disx,disy)
+
+        //为了防止鼠标出DIV，使用document
+        document.onmousemove = function (e) {
+            //获取移动后DIV的位置
+            var le = e.clientX - disx;
+            var ri = e.clientY - disy;
+            el.style.left = le + 'px';
+            el.style.top  = ri + 'px ';
+        }
+
+        //停止移动
+        document.onmouseup = function (e) {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+    }
+})
+
+var vm = new Vue({
+    el: '#e1',
+    data: {},
+    methods: {},
+})
+
+</script>
+</html>

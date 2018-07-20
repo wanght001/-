@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>模板</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script>
+  window.onload = function () {
+    let vm = new Vue({
+        el: '#e1',
+        data: {
+          msg: '<p>sss</p>'
+        },
+        methods: {},
+        created: function () {
+          alert('111')
+        }
+      }
+    )
+  }
+  </script>
+
+</head>
+<body>
+<div id="e1">
+  <input v-model="msg" type="text">
+
+  <h3>{{msg}}</h3>
+
+  <p v-text="msg"></p>
+
+  <!--v-html能识别标签-->
+  <p v-html="msg"></p>
+
+  <!--只显示第一次取的值-->
+  <p v-once>{{msg}}</p>
+
+  <p v-pre>{{msg}}</p>
+</div>
+</body>
+</html>

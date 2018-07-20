@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>slot内容分发</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style>
+
+</style>
+<body>
+<div id="e2">
+   <my-1>
+     <ul slot="s1">
+       <li>s</li>
+       <li>s</li>
+       <li>s</li>
+       <li>s</li>
+     </ul>
+     <ul slot="s2">
+       <li>a</li>
+       <li>a</li>
+       <li>a</li>
+       <li>a</li>
+     </ul>
+   </my-1>
+</div>
+</body>
+
+<template id="e21">
+  <div>
+    <h3>xxxxxx</h3>
+    <!--<slot>如果没有原内容,则显示这条</slot>-->
+    <slot name="s1"></slot>
+  </div>
+</template>
+<script>
+
+window.onload=function () {
+    var vm2 = new Vue({
+        el:'#e2',
+        components:{
+            'my-1':{
+                template:'#e21'
+            }
+        },
+        data:{
+        },
+    })
+}
+</script>
+</html>

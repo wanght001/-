@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>非父子组件之间的通信</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style>
+
+</style>
+<body>
+<div id="e2">
+    <my-a></my-a>
+    <my-b></my-b>
+    <my-c></my-c>
+</div>
+</body>
+
+<template id="a">
+  <div>
+    <h3>a组件:{{name}}</h3>
+    <button @click="send">将a组件发给c组件</button>
+  </div>
+</template>
+
+<template id="b">
+  <div>
+    <h3>b组件:{{age}}</h3>
+  </div>
+</template>
+
+<template id="c">
+  <div>
+    <h3>c组件:{{name}}</h3>
+  </div>
+</template>
+<script>
+
+window.onload = function () {
+
+    //使用一个空的VUE来作为中间总线通信
+    // var Event = new Vue();
+    // Event.$emit(事件名，数据)
+    // Event.$on(事件名，data)
+    var Event = new Vue();
+
+    var vm2 = new Vue({
+        el: '#e2',
+        components: {
+            'my-a': {
+                methods:{
+                  send(){
+                      Event.$emit('data-a',this.name)
+                  }
+                },
+                template: '#a',
+                data () {
+                    return {
+                        name: 'tom'
+                    }
+                }
+            },
+            'my-b': {
+                template: '#b',
+                data () {
+                    return {
+                        age: 18
+                    }
+                }
+            },
+            'my-c': {
+                template: '#c',
+                data () {
+                    return {
+                        name:''
+                    }
+                },
+                mounted(){//在模板编译完成后执行
+                    Event.$on('data-a',name=>{
+                        console.log(name)
+                        this.name= name
+                    })
+                }
+            }
+        },
+        data: {},
+    })
+}
+</script>
+</html>
