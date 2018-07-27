@@ -668,7 +668,7 @@
         // Match escaped characters that would otherwise appear in future matches.
         // This allows the user to escape special characters that won't transform.
         '(\\\\.)',
-        // Match Express-style parameters and un-named parameters with a prefix
+        // Match Express-style.css parameters and un-named parameters with a prefix
         // and optional suffixes. Matches appear as:
         //
         // "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?", undefined]

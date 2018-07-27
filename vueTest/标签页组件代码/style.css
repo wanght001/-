@@ -5,9 +5,9 @@
 .tabs{
     font-size: 14px;
     color: #657180;
-    &-content{
-        padding: 8px 0;
-    }
+}
+.tabs-content{
+    padding: 8px 0;
 }
 
 .tabs-bar:after{
@@ -27,18 +27,18 @@
     border:1px solid #d7dde4;
     cursor: pointer;
     position: relative;
-    &-active{
-        color: #3399ff;
-        border-bottom: 1px solid #fff;
-        border-top: 1px solid #3399ff;
+}
 
-        &::before{
-            content: '';
-            display: block;
-            height: 1px;
-            background: #3399ff;
-            position: absolute;
-            top: 0;left: 0;right: 0;
-        }
-    }
+.tabs-tab-active{
+    color: #3399ff;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #3399ff;
+}
+.tabs-tab-active:before{
+    content: '';
+    display: block;
+    height: 1px;
+    background: #3399ff;
+    position: absolute;
+    top: 0;left: 0;right: 0;
 }

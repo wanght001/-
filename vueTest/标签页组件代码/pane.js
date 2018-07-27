@@ -10,7 +10,7 @@ Vue.component('pane',{
     data(){
         return {
             show: true
-        }
+    }
     },
     methods: {
         updateNav(){

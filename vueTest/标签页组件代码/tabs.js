@@ -25,7 +25,7 @@ Vue.component('tabs',{
             return [
                 'tabs-tab',
                 {
-                    'tabs-tab-active': item.name === this.currentValue()
+                    'tabs-tab-active': item.name === this.currentValue
                 }
             ]
         },
@@ -36,17 +36,15 @@ Vue.component('tabs',{
         },
         updateNav(){
             this.navList=[];
-            var _this = this;
-
             this.getTabs().forEach((pane, index) =>{
-                _this.navList.push({
+                this.navList.push({
                     label:pane.label,
                     name: pane.name|| index
                 });
                 if(!pane.name) pane.name = index;
                 if(index === 0) {
-                    if(!_this.currentValue){
-                        _this.currentValue = pane.name || index;
+                    if(!this.currentValue){
+                        this.currentValue = pane.name || index;
                     }
                 }
             });
@@ -54,10 +52,8 @@ Vue.component('tabs',{
         },
         updateStatus(){
             var tabs = this.getTabs();
-            var _this = this;
-
             tabs.forEach(tab =>{
-                return tab.show = tab.name === _this.currentValue;
+                return tab.show = tab.name === this.currentValue;
             })
         },
         handleChange(index){

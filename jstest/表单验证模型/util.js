@@ -10,11 +10,11 @@ function validateEmpty (eleId) {
     var spanObj = document.getElementById(eleId + "span"); //取得span元素
     if( obj.value === "" ){
         obj.className = 'failure'
-        spanObj.innerHTML = '<p style="color: red">x</p>'
+        spanObj.innerHTML = '<p style.css="color: red">x</p>'
         return false
     }else {
         obj.className = 'success';
-        spanObj.innerHTML = '<p style="color: green">√</p>'
+        spanObj.innerHTML = '<p style.css="color: green">√</p>'
         return true
     }
 }
